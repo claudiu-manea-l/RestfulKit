@@ -3,11 +3,16 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 version = "1.0.0"
+group = "bintray-claudiu-maven"
+
+def siteUrl = 'https://github.com/codez2love/RestfulKit'
+def gitUrl = 'https://github.com/codez2love/RestfulKit.git'
+
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.0 rc1"
-    resourcePrefix "restfull__"
+    buildToolsVersion "21.1.2"
+    resourcePrefix "restful__"
 
     defaultConfig {
         minSdkVersion 10
@@ -23,9 +28,23 @@ android {
     }
 }
 
-def siteUrl = 'https://github.com/izacus/FuzzyDateFormatter'      // Homepage URL of the library
-def gitUrl = 'https://github.com/izacus/FuzzyDateFormatter.git'   // Git repository URL
-group = "<maven group id>"                                        // Maven Group ID for the artifact
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "com.eptron.restfulkik"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
 
 install {
     repositories.mavenInstaller {
@@ -35,7 +54,7 @@ install {
                 packaging 'aar'
 
                 // Add your description here
-                name '<Your library description>'
+                name 'com.eptron.restfulkik'
                 url siteUrl
 
                 // Set your license
@@ -47,9 +66,9 @@ install {
                 }
                 developers {
                     developer {
-                        id '<your user ID>'
-                        name '<your name>'
-                        email '<your email>'
+                        id 'codez2love'
+                        name 'Claudiu Manea'
+                        email 'claudiu.manea.l@gmail.com'
                     }
                 }
                 scm {
@@ -90,3 +109,4 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
+

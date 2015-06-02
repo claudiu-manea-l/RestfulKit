@@ -1,1 +1,1 @@
-include ':app', ':restfulkik'
+include ':restfulkik'
